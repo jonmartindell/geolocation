@@ -22,31 +22,47 @@
               startPos.coords.accuracy;
           },
           function (error) {
-            alert("Error occurred. Error code: " + error.code);
+            alert("getcurrentposition Error occurred. Error code: " + error.code + ", " + error.message);
+
             // error.code can be:
             //   0: unknown error
             //   1: permission denied
             //   2: position unavailable (error response from locaton provider)
             //   3: timed out
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
           }
         );
       });
 
       document.getElementById("watch").addEventListener("click", function () {
-        watcher = navigator.geolocation.watchPosition(function (position) {
-          document.getElementById("currentLat").innerHTML =
-            position.coords.latitude;
-          document.getElementById("currentLon").innerHTML =
-            position.coords.longitude;
-          document.getElementById("currentAccuracy").innerHTML =
-            position.coords.accuracy;
-          document.getElementById("distance").innerHTML = calculateDistance(
-            startPos.coords.latitude,
-            startPos.coords.longitude,
-            position.coords.latitude,
-            position.coords.longitude
-          );
-        });
+        watcher = navigator.geolocation.watchPosition(
+          function (position) {
+            document.getElementById("currentLat").innerHTML =
+              position.coords.latitude;
+            document.getElementById("currentLon").innerHTML =
+              position.coords.longitude;
+            document.getElementById("currentAccuracy").innerHTML =
+              position.coords.accuracy;
+            document.getElementById("distance").innerHTML = calculateDistance(
+              startPos.coords.latitude,
+              startPos.coords.longitude,
+              position.coords.latitude,
+              position.coords.longitude
+            );
+          },
+          function (error) {
+            alert("watchposition Error occurred. Error code: " + error.code + ", " + error.message);
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+          }
+        );
       });
 
       document.getElementById("stop").addEventListener("click", function () {
