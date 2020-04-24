@@ -19,7 +19,7 @@
             document.getElementById("startLon").innerHTML =
               startPos.coords.longitude;
             document.getElementById("startAccuracy").innerHTML =
-              startPos.coords.accuracy;
+              (startPos.coords.accuracy * 3.28084);
           },
           function (error) {
             alert("getcurrentposition Error occurred. Error code: " + error.code + ", " + error.message);
@@ -32,7 +32,7 @@
           },
           {
             enableHighAccuracy: true,
-            timeout: 5000,
+            timeout: 10000,
             maximumAge: 0,
           }
         );
@@ -46,7 +46,7 @@
             document.getElementById("currentLon").innerHTML =
               position.coords.longitude;
             document.getElementById("currentAccuracy").innerHTML =
-              position.coords.accuracy;
+              (position.coords.accuracy * 3.28084);
             document.getElementById("distance").innerHTML = calculateDistance(
               startPos.coords.latitude,
               startPos.coords.longitude,
@@ -59,7 +59,7 @@
           },
           {
             enableHighAccuracy: true,
-            timeout: 5000,
+            timeout: 10000,
             maximumAge: 0,
           }
         );
@@ -85,7 +85,7 @@
           Math.sin(dLon / 2);
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       var d = R * c;
-      return d;
+      return d * 3280.84;
     }
     Number.prototype.toRad = function () {
       return (this * Math.PI) / 180;
@@ -100,7 +100,7 @@
       </p>
       <p>
         Starting Accuracy:<br />
-        <span id="startAccuracy">??</span> m
+        <span id="startAccuracy">??</span> ft
       </p>
 
       <button id="watch">Watch Movement</button>
@@ -111,11 +111,11 @@
       </p>
       <p>
         Current Accuracy:<br />
-        <span id="currentAccuracy">?</span> m
+        <span id="currentAccuracy">?</span> ft
       </p>
       <p>
         Distance from starting location:<br />
-        <span id="distance">??</span> m
+        <span id="distance">??</span> ft
       </p>
 
       <button id="stop">Stop Watching</button>
